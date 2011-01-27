@@ -23,7 +23,14 @@ Description=A keystroke launcher for BlackBerry
 ExcludeFromBuildAll=0
 Exported=0
 [Files
+src\main\java\keyfire\BlackBerrySystem.java
+src\main\java\keyfire\HotKeyApplication.java
 src\main\java\keyfire\Main.java
+src\main\java\keyfire\PersistentData.java
+src\main\java\keyfire\Settings.java
+src\main\java\keyfire\ui\HotKeyInputScreen.java
+src\main\java\keyfire\Util.java
+src\main\java\keyfire\util\DeviceBlackBerrySystem.java
 src\main\resources\icon.png
 ]
 HaveAlxImports=0
