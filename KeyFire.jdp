@@ -19,6 +19,7 @@ AutoRestart=0
 ]
 [DependsOn
 ]
+Description=A keystroke launcher for BlackBerry
 ExcludeFromBuildAll=0
 Exported=0
 [Files
@@ -36,7 +37,7 @@ src\main\resources\icon.png
 [Imports
 ]
 Listing=0
-Options=-quiet
+Options=-quiet 
 OutputFileName=KeyFire
 [PackageProtection
 ]
@@ -47,4 +48,7 @@ RunOnStartup=0
 SkipCompile=0
 StartupTier=7
 SystemModule=0
+Title=KeyFire
 Type=0
+Vendor=Denver Coneybeare
+Version=0.0.1
