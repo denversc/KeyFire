@@ -31,7 +31,7 @@ import net.rim.device.api.system.Application;
  */
 public class Main {
 
-    public static final long GUID = 0;
+    public static final long GUID = 0x5696b214bb5434eaL; // keyfire.Main.GUID
 
     private final String[] _args;
     private final BlackBerrySystem _system;
@@ -51,6 +51,26 @@ public class Main {
         }
         this._args = Util.copy(args);
         this._system = system;
+    }
+
+    /**
+     * Returns a new instance of an Application based on the arguments that were given to the
+     * constructor.
+     * 
+     * @return a newly-created instance of <code>Application</code> created based on the given
+     * arguments; never returns <code>null</code>
+     * @throws InvalidArgumentsException if the arguments that were given to the constructor are not
+     * valid and no corresponding Application object could be created
+     */
+    public Application createApplication() throws InvalidArgumentsException {
+        final String[] args = this.getArgs();
+
+        if (args == null || args.length == 0) {
+            return new HotKeyApplication(this._system);
+        }
+
+        final String arg0 = args[0];
+        throw new InvalidArgumentsException("unknown argument: " + arg0);
     }
 
     /**
@@ -76,48 +96,20 @@ public class Main {
     /**
      * Runs the application with the arguments that were given to the constructor.
      * <p>
-     * This method invokes {@link #getApplication(String[])} with the arguments returned from
-     * {@link #getArgs()}. If the returned object is <code>null</code> then
-     * <code>InvalidArgumentsException</code> is thrown. Otherwise, if the object is an instance of
-     * {@link Runnable} then its <code>run()</code> method is invoked. Finally, the object's
-     * <code>enterEventDispatcher()</code> method is invoked.
+     * This method invokes {@link #createApplication()} to create the Application object. If the
+     * application object implements {@link Runnable} then its <code>run()</code> method is invoked.
+     * Then the object's <code>enterEventDispatcher()</code> method is invoked.
      * 
-     * @throws InvalidArgumentsException if the arguments that were given to the constructor are
-     * invalid
+     * @throws InvalidArgumentsException if it is thrown by {@link #createApplication()}
      */
     public void run() throws InvalidArgumentsException {
-        final String[] args = this.getArgs();
-        final BlackBerrySystem system = this.getSystem();
-
-        final Application application = getApplication(args, system);
+        final Application application = this.createApplication();
 
         if (application instanceof Runnable) {
             ((Runnable) application).run();
         }
 
         application.enterEventDispatcher();
-    }
-
-    /**
-     * Returns a new instance of an Application that corresponds to the given arguments.
-     * 
-     * @param args the arguments whose Application instance to return; may be null
-     * @param system the <code>BlackBerrySystem</code> object to specify to the constructor of the
-     * application object created
-     * @return a newly-created instance of <code>Application</code> created based on the given
-     * arguments; returns null if there is no corresponding <code>Application</code> instance.
-     * @throws NullPointerException if <code>system==null</code>
-     */
-    public static Application getApplication(String[] args, BlackBerrySystem system) {
-        if (system == null) {
-            throw new NullPointerException("system==null");
-        }
-
-        if (args == null || args.length == 0) {
-            return new HotKeyApplication();
-        }
-
-        return null;
     }
 
     /**

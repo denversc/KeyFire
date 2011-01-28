@@ -35,12 +35,20 @@ import net.rim.device.api.ui.UiEngine;
  */
 public class HotKeyApplication extends UiApplication implements Runnable {
 
+    private final BlackBerrySystem _system;
     private final HotKeyInputScreen _screen;
 
     /**
      * Creates a new instance of <code>HotKeyApplication</code>.
+     * 
+     * @param system the system to use
+     * @throws NullPointerException if <code>system==null</code>
      */
-    public HotKeyApplication() {
+    public HotKeyApplication(BlackBerrySystem system) {
+        if (system == null) {
+            throw new NullPointerException("system==null");
+        }
+        this._system = system;
         this._screen = new HotKeyInputScreen();
     }
 
@@ -51,6 +59,16 @@ public class HotKeyApplication extends UiApplication implements Runnable {
      */
     public HotKeyInputScreen getScreen() {
         return this._screen;
+    }
+
+    /**
+     * Returns the system used by this object.
+     * 
+     * @return the <code>BlackBerrySystem</code> object that was specified to the constructor; never
+     * returns <code>null</code>
+     */
+    public BlackBerrySystem getSystem() {
+        return this._system;
     }
 
     /**
