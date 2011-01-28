@@ -28,7 +28,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
-import keyfire.Main.InvalidArgumentsException;
 import keyfire.testutil.MockBlackBerrySystem;
 
 import org.junit.Before;
@@ -185,7 +184,7 @@ public class MainTest {
     public void test_InvalidArgumentsException_throw() {
         try {
             throw new Main.InvalidArgumentsException("test");
-        } catch (final InvalidArgumentsException e) {
+        } catch (final Main.InvalidArgumentsException e) {
             // expected
         }
     }
